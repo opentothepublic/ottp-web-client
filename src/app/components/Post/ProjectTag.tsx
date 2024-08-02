@@ -1,5 +1,3 @@
-import { PropsWithChildren } from "react";
-import { PostSection } from "./PostSection";
 import { ProposalTag } from "./ProposalTag";
 
 type Props = {

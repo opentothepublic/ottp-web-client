@@ -1,4 +1,3 @@
-import { PropsWithChildren } from "react";
 import Image from "next/image";
 import { PostSection } from "./PostSection";
 import { Collaborator } from "./Collaborator";
@@ -55,12 +54,12 @@ export const Post: React.FC<Props> = ({ postContent }) => {
         <div>{postContent.description}</div>
         <ProjectAndProposalSection>
           <div className="flex">
-            {postContent.projectsAndProposals?.map((tag) => {
+            {postContent.projectsAndProposals?.map((tag, index) => {
               if (tag.type === ProjectProposal.PROJECT) {
-                return <ProjectTag name={tag.name} />;
+                return <ProjectTag key={index} name={tag.name} />;
               }
               if (tag.type === ProjectProposal.PROPOSAL) {
-                return <ProposalTag name={tag.name} />;
+                return <ProposalTag key={index} name={tag.name} />;
               }
             })}
           </div>
