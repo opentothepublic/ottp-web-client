@@ -1,5 +1,9 @@
 import { PropsWithChildren } from "react";
 
-export const PostSection: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  return <div className="flex my-2">{children}</div>;
+interface Props extends PropsWithChildren {
+  className?: string;
+}
+
+export const PostSection: React.FC<Props> = ({ children, className }) => {
+  return <div className={`flex my-2 ${className || ""}`}>{children}</div>;
 };
