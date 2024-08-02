@@ -1,5 +1,7 @@
 import { PropsWithChildren } from "react";
 import Image from "next/image";
+import { PostSection } from "./PostSection";
+import { Collaborator } from "./Collaborator";
 
 export type Post = {
   name: string;
@@ -15,18 +17,27 @@ type Props = {
 export const Post: React.FC<Props> = ({ postContent }) => {
   return (
     <div className="flex justify-between max-w-2xl	border-black border-2 p-6">
-      <Image src="./circle.png" alt="test circle gray" className="w-20" />
+      <div className="w-44">
+        <Image
+          src="/circle.png"
+          alt="test circle gray"
+          width={60}
+          height={60}
+        />
+      </div>
       <div>
-        <div className="flex">
+        <PostSection>
           <h2>{postContent.name}</h2>
-          <aside>{postContent.timeElapsed}</aside>
-        </div>
-        <div className="flex">
+          <aside className="text-gray-500 pl-2">
+            {postContent.timeElapsed}
+          </aside>
+        </PostSection>
+        <PostSection>
           <div>Collaborator(s):</div>
           {postContent.collaborators.map((collaborator, index) => {
-            return <aside key={index}>{collaborator}</aside>;
+            return <Collaborator key={index} name={collaborator} />;
           })}
-        </div>
+        </PostSection>
         <div>{postContent.description}</div>
       </div>
     </div>
