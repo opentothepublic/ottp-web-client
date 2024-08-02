@@ -2,18 +2,32 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## How to run
+
+### Requirements
+
+- Nodejs 18 or greater
+- npm
+
+Note: you can run both these commands to ensure your machine has them installed
+
+```
+node -v
+npm -v
+```
+
+### Steps
+
+1. run `npm ci`
+2. run `npm run dev` to view the live application on `http://localhost:3000/`
+
 ## Getting Started
 
 First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
