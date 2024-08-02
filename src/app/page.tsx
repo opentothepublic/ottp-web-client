@@ -1,5 +1,5 @@
 import { PageContainer } from "@/app/components/PageLayout";
-import { Header, Post, Title } from "@/components/index";
+import { Footer, Header, Post, Title } from "@/components/index";
 import { posts } from "@/constants/mocks/postsMock";
 
 export default function Home() {
@@ -12,6 +12,7 @@ export default function Home() {
           return <Post key={index} postContent={post} />;
         })}
       </PageContainer>
+      <Footer />
     </main>
   );
 }
