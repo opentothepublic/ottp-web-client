@@ -29,7 +29,7 @@ type Props = {
 
 export const Post: React.FC<Props> = ({ postContent }) => {
   return (
-    <div className="flex justify-between max-w-2xl	border-black border-2 p-6 mt-6">
+    <div className="flex justify-between max-w-2xl	border-black border-2 p-6 mt-6 mx-auto">
       <div className="w-44">
         <Image
           src="/circle.png"
