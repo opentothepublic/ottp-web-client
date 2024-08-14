@@ -5,5 +5,5 @@ interface Props extends PropsWithChildren {
 }
 
 export const PostSection: React.FC<Props> = ({ children, className }) => {
-  return <div className={`flex my-2 ${className || ""}`}>{children}</div>;
+  return <div className={`flex mb-2 ${className || ""}`}>{children}</div>;
 };

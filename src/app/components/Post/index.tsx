@@ -20,6 +20,7 @@ export type Post = {
   timeElapsed: string;
   collaborators: string[];
   description: string;
+  imageSrc: string;
   projectsAndProposals?: ProjectOrProposal[];
 };
 
@@ -30,12 +31,12 @@ type Props = {
 export const Post: React.FC<Props> = ({ postContent }) => {
   return (
     <div className="flex justify-between max-w-2xl	border-slate-400 border-2 p-6 mt-6 ">
-      <div className="w-44 px-4">
+      <div className="mr-4 shrink-0 [&>img]:rounded-full">
         <Image
-          src="/circle.png"
+          src={postContent.imageSrc}
           alt="test circle gray"
-          width={60}
-          height={60}
+          width={44}
+          height={44}
         />
       </div>
       <div>
