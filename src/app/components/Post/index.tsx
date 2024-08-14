@@ -9,6 +9,7 @@ export type Post = {
   timeElapsed: string;
   collaborators: string[];
   description: string;
+  projectName: string;
   imageSrc: string;
 };
 
@@ -42,7 +43,9 @@ export const Post: React.FC<Props> = ({ postContent }) => {
         </PostSection>
         <div>{postContent.description}</div>
         <PostFooter>
-          <div className="flex"></div>
+          <div className="flex text-gray-500 italic">
+            {postContent.projectName}
+          </div>
           <Link href={"/"} className="text-blue-800 underline">
             View on EAS
           </Link>
