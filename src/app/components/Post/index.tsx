@@ -29,8 +29,8 @@ type Props = {
 
 export const Post: React.FC<Props> = ({ postContent }) => {
   return (
-    <div className="flex justify-between max-w-2xl	border-black border-2 p-6 mt-6">
-      <div className="w-44">
+    <div className="flex justify-between max-w-2xl	border-slate-400 border-2 p-6 mt-6 ">
+      <div className="w-44 px-4">
         <Image
           src="/circle.png"
           alt="test circle gray"
@@ -64,7 +64,7 @@ export const Post: React.FC<Props> = ({ postContent }) => {
             })}
           </div>
           <Link href={"/"} className="text-blue-800 underline">
-            View
+            View on EAS
           </Link>
         </ProjectAndProposalSection>
       </div>
