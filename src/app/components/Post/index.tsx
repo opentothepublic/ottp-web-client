@@ -1,19 +1,8 @@
 import Image from "next/image";
 import { PostSection } from "./PostSection";
 import { Collaborator } from "./Collaborator";
-import { ProjectAndProposalSection } from "./ProjectAndProposalSection";
+import { PostFooter } from "./PostFooter";
 import Link from "next/link";
-import { ProjectTag } from "./ProjectTag";
-import { ProposalTag } from "./ProposalTag";
-
-export enum ProjectProposal {
-  PROJECT = "project",
-  PROPOSAL = "proposal",
-}
-type ProjectOrProposal = {
-  name: string;
-  type: ProjectProposal;
-};
 
 export type Post = {
   name: string;
@@ -21,7 +10,6 @@ export type Post = {
   collaborators: string[];
   description: string;
   imageSrc: string;
-  projectsAndProposals?: ProjectOrProposal[];
 };
 
 type Props = {
@@ -53,21 +41,12 @@ export const Post: React.FC<Props> = ({ postContent }) => {
           })}
         </PostSection>
         <div>{postContent.description}</div>
-        <ProjectAndProposalSection>
-          <div className="flex">
-            {postContent.projectsAndProposals?.map((tag, index) => {
-              if (tag.type === ProjectProposal.PROJECT) {
-                return <ProjectTag key={index} name={tag.name} />;
-              }
-              if (tag.type === ProjectProposal.PROPOSAL) {
-                return <ProposalTag key={index} name={tag.name} />;
-              }
-            })}
-          </div>
+        <PostFooter>
+          <div className="flex"></div>
           <Link href={"/"} className="text-blue-800 underline">
             View on EAS
           </Link>
-        </ProjectAndProposalSection>
+        </PostFooter>
       </div>
     </div>
   );
