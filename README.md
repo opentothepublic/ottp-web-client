@@ -1,8 +1,18 @@
-# wc-test
+# OTTP web client
+
+![ottp-web-client-forked-lg](https://github.com/user-attachments/assets/fae7732f-200d-4ef8-b9d1-f5f2a6cd9c50)
+
+## Get Started
+Open to the Public (OTTP) is an open collaboration protocol. View main [/protocol](https://opentothepublic.org/protocol) repo.
+
+This is the repository for the OTTP web client.
+
+Version: v0 
+Note: The OTTP SDK is being updated. The web client will be built on the SDK.
+
+## How to Run
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## How to run
 
 ### Requirements
 
@@ -50,3 +60,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Get Involved
+If you're interested in contributing to this open-source project, please see [CONTRIBUTING](CONTRIBUTING.md).
+
+*Note: Everything is a work in progress.*
