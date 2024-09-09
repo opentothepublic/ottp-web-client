@@ -1,26 +1,16 @@
 import Image from "next/image";
 import { PostSection } from "./PostSection";
 import { Collaborator } from "./Collaborator";
-import { ProjectAndProposalSection } from "./ProjectAndProposalSection";
+import { PostFooter } from "./PostFooter";
 import Link from "next/link";
-import { ProjectTag } from "./ProjectTag";
-import { ProposalTag } from "./ProposalTag";
-
-export enum ProjectProposal {
-  PROJECT = "project",
-  PROPOSAL = "proposal",
-}
-type ProjectOrProposal = {
-  name: string;
-  type: ProjectProposal;
-};
 
 export type Post = {
   name: string;
   timeElapsed: string;
   collaborators: string[];
   description: string;
-  projectsAndProposals?: ProjectOrProposal[];
+  projectName: string;
+  imageSrc: string;
 };
 
 type Props = {
@@ -30,12 +20,12 @@ type Props = {
 export const Post: React.FC<Props> = ({ postContent }) => {
   return (
     <div className="flex justify-between max-w-2xl	border-slate-400 border-2 p-6 mt-6 ">
-      <div className="w-44 px-4">
+      <div className="mr-4 shrink-0 [&>img]:rounded-full">
         <Image
-          src="/circle.png"
+          src={postContent.imageSrc}
           alt="test circle gray"
-          width={60}
-          height={60}
+          width={44}
+          height={44}
         />
       </div>
       <div>
@@ -52,21 +42,14 @@ export const Post: React.FC<Props> = ({ postContent }) => {
           })}
         </PostSection>
         <div>{postContent.description}</div>
-        <ProjectAndProposalSection>
-          <div className="flex">
-            {postContent.projectsAndProposals?.map((tag, index) => {
-              if (tag.type === ProjectProposal.PROJECT) {
-                return <ProjectTag key={index} name={tag.name} />;
-              }
-              if (tag.type === ProjectProposal.PROPOSAL) {
-                return <ProposalTag key={index} name={tag.name} />;
-              }
-            })}
+        <PostFooter>
+          <div className="flex text-gray-500 italic">
+            {postContent.projectName}
           </div>
           <Link href={"/"} className="text-blue-800 underline">
             View on EAS
           </Link>
-        </ProjectAndProposalSection>
+        </PostFooter>
       </div>
     </div>
   );
