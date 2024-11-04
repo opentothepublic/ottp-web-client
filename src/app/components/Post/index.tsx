@@ -46,7 +46,7 @@ export const Post: React.FC<Props> = ({ postContent }) => {
           <div className="flex text-gray-500 italic">
             {postContent.projectName}
           </div>
-          <Link href={"/"} className="text-blue-800 underline">
+          <Link href={"/"} className="text-blue underline">
             View on EAS
           </Link>
         </PostFooter>

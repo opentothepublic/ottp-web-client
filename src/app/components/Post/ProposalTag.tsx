@@ -1,6 +1,3 @@
-import { PropsWithChildren } from "react";
-import { PostSection } from "./PostSection";
-
 type Props = {
   name: string;
   className?: string;
