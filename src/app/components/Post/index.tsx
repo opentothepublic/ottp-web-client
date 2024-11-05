@@ -35,13 +35,13 @@ export const Post: React.FC<Props> = ({ postContent }) => {
             {postContent.timeElapsed}
           </aside>
         </PostSection>
-        <PostSection>
+        <PostSection className="flex flex-wrap">
           <div>Collaborator(s):</div>
           {postContent.collaborators.map((collaborator, index) => {
             return <Collaborator key={index} name={collaborator} />;
           })}
         </PostSection>
-        <div>{postContent.description}</div>
+        <PostSection>{postContent.description}</PostSection>
         <PostFooter>
           <div className="flex text-gray-500 italic">
             {postContent.projectName}
