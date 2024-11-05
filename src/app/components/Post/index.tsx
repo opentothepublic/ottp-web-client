@@ -19,7 +19,7 @@ type Props = {
 
 export const Post: React.FC<Props> = ({ postContent }) => {
   return (
-    <div className="flex justify-between max-w-2xl	border-slate-400 border-2 p-6 mt-6 ">
+    <div className="flex justify-between max-w-2xl	border-gray-600 border-2 p-6 mt-6 ">
       <div className="mr-4 shrink-0 [&>img]:rounded-full">
         <Image
           src={postContent.imageSrc}
@@ -35,18 +35,18 @@ export const Post: React.FC<Props> = ({ postContent }) => {
             {postContent.timeElapsed}
           </aside>
         </PostSection>
-        <PostSection>
+        <PostSection className="flex flex-wrap">
           <div>Collaborator(s):</div>
           {postContent.collaborators.map((collaborator, index) => {
             return <Collaborator key={index} name={collaborator} />;
           })}
         </PostSection>
-        <div>{postContent.description}</div>
+        <PostSection>{postContent.description}</PostSection>
         <PostFooter>
           <div className="flex text-gray-500 italic">
             {postContent.projectName}
           </div>
-          <Link href={"/"} className="text-blue-800 underline">
+          <Link href={"/"} className="text-blue underline">
             View on EAS
           </Link>
         </PostFooter>

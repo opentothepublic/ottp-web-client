@@ -14,7 +14,7 @@ const Tab: React.FC<Props> = ({ title }) => {
 
 export const NavBar: React.FC = () => {
   return (
-    <nav className="border-black border-b-2">
+    <nav className="border-gray-600 border-b-2">
       <ul className="list-none flex">
         <strong>
           <Tab title="Posts" />
