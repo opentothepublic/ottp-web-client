@@ -32,6 +32,14 @@ const config: Config = {
         50: "#F2F2F2",
       },
     },
+    fontSize: {
+      "2xl": ["24px", "30px"],
+      "3xl": ["28px", "36px"],
+      "4xl": ["32px", "40px"],
+      "5xl": ["42px", "50px"],
+      "6xl": ["54px", "64px"],
+      "7xl": ["68px", "78px"],
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
