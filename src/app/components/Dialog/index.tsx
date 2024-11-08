@@ -1,4 +1,29 @@
 import { PropsWithChildren, useEffect } from "react";
+import { Button } from "@/components/common/Button";
+
+type SignInOption = {
+  name: string;
+  icon: JSX.Element;
+};
+
+const signInOptions: SignInOption[] = [
+  {
+    name: "Coinbase",
+    icon: <span className="text-blue-600 text-xl">⬤</span>, // Placeholder for Coinbase logo
+  },
+  {
+    name: "MetaMask",
+    icon: <span className="text-orange-500 text-xl">🦊</span>, // Placeholder for MetaMask logo
+  },
+  {
+    name: "WalletConnect",
+    icon: <span className="text-blue-400 text-xl">🌐</span>, // Placeholder for WalletConnect logo
+  },
+  {
+    name: "Farcaster",
+    icon: <span className="text-purple-600 text-xl">🏛️</span>, // Placeholder for Farcaster logo
+  },
+];
 
 const DialogOverlay: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
@@ -53,27 +78,19 @@ export const Dialog: React.FC = () => {
     <DialogOverlay>
       <div
         data-dialog="dialog"
-        className="relative m-4 p-4 w-2/5 min-w-[40%] max-w-[40%]  bg-white  border-1 border-gray-600"
+        className="relative bg-white p-12 border-1 border-gray-600 max-w-xs"
       >
         <div className="title-large">Sign in or sign up.</div>
-        <div className="border-slate-200 leading-normal text-slate-600">
-          Coinbase/MetaMask/etc...
+        <div className="nody-medium">
+          Use a Farcaster verified Ethereum address.
         </div>
-        <div className="flex shrink-0 flex-wrap items-center pt-4 justify-end">
-          <button
-            data-dialog-close="true"
-            className="rounded-md border border-transparent py-2 px-4 text-center text-sm transition-all text-slate-600 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            type="button"
-          >
-            Cancel
-          </button>
-          <button
-            data-dialog-close="true"
-            className="rounded-md bg-green-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-            type="button"
-          >
-            Confirm
-          </button>
+        <div className="flex flex-col gap-6 pt-6">
+          {signInOptions.map((option) => (
+            <Button key={option.name} className="flex pl-6 items-center">
+              <span className="mr-3">{option.icon}</span>
+              <span className="font-semibold">{option.name}</span>
+            </Button>
+          ))}
         </div>
       </div>
     </DialogOverlay>
