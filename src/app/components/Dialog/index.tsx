@@ -1,12 +1,16 @@
 "use client";
 
-import { PropsWithChildren, useEffect, useRef } from "react";
+import { MutableRefObject, PropsWithChildren, useEffect, useRef } from "react";
 import { SignInOption, signInMetamask } from "./constants";
 import { Button } from "@/components/common/Button";
 
 interface Props {
   setUserWallet: React.Dispatch<React.SetStateAction<string>>;
 }
+
+const closeDialog = (ref: MutableRefObject<HTMLElement | null>) => {
+  ref.current?.click();
+};
 
 const DialogOverlay: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
@@ -30,7 +34,7 @@ export const Dialog: React.FC<Props> = ({ setUserWallet }) => {
           method: "eth_requestAccounts",
         });
         setUserWallet(accounts[0]);
-        backdropRef.current?.click();
+        closeDialog(backdropRef);
       } catch {
         console.error("There was an issue connecting to your metamask account");
       }
@@ -86,6 +90,12 @@ export const Dialog: React.FC<Props> = ({ setUserWallet }) => {
         data-dialog="dialog"
         className="relative bg-white p-12 border-1 border-gray-600 max-w-xs"
       >
+        <button
+          onClick={() => closeDialog(backdropRef)}
+          className="absolute top-2 right-2 cursor-pointer"
+        >
+          X
+        </button>
         <div className="title-large">Sign in or sign up.</div>
         <div className="nody-medium">
           Use a Farcaster verified Ethereum address.
