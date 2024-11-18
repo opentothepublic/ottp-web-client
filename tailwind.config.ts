@@ -5,8 +5,16 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+    },
     colors: {
       black: "#000000",
       blue: "#0000FF",
@@ -33,19 +41,16 @@ const config: Config = {
       },
     },
     fontSize: {
+      xs: ["12px", "16px"],
+      sm: ["14px", "20px"],
+      base: ["16px", "24px"],
+      xl: ["20px", "28px"],
       "2xl": ["24px", "30px"],
       "3xl": ["28px", "36px"],
       "4xl": ["32px", "40px"],
       "5xl": ["42px", "50px"],
       "6xl": ["54px", "64px"],
       "7xl": ["68px", "78px"],
-    },
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
     },
   },
   plugins: [],
