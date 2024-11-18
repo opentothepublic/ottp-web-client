@@ -1,29 +1,12 @@
-import { PropsWithChildren, useEffect } from "react";
+"use client";
+
+import { PropsWithChildren, useEffect, useRef } from "react";
+import { SignInOption, signInMetamask } from "./constants";
 import { Button } from "@/components/common/Button";
 
-type SignInOption = {
-  name: string;
-  icon: JSX.Element;
-};
-
-const signInOptions: SignInOption[] = [
-  {
-    name: "Coinbase",
-    icon: <span className="text-blue-600 text-xl">⬤</span>, // Placeholder for Coinbase logo
-  },
-  {
-    name: "MetaMask",
-    icon: <span className="text-orange-500 text-xl">🦊</span>, // Placeholder for MetaMask logo
-  },
-  {
-    name: "WalletConnect",
-    icon: <span className="text-blue-400 text-xl">🌐</span>, // Placeholder for WalletConnect logo
-  },
-  {
-    name: "Farcaster",
-    icon: <span className="text-purple-600 text-xl">🏛️</span>, // Placeholder for Farcaster logo
-  },
-];
+interface Props {
+  setUserWallet: React.Dispatch<React.SetStateAction<string>>;
+}
 
 const DialogOverlay: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
@@ -37,18 +20,40 @@ const DialogOverlay: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   );
 };
 
-export const Dialog: React.FC = () => {
+export const Dialog: React.FC<Props> = ({ setUserWallet }) => {
+  const backdropRef = useRef<HTMLElement | null>(null);
+
+  const connectToWallet = async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setUserWallet(accounts[0]);
+        backdropRef.current?.click();
+      } catch {
+        console.error("There was an issue connecting to your metamask account");
+      }
+    } else {
+      console.log("No metamask wallet found");
+    }
+  };
+
   useEffect(() => {
     if (document) {
       const openButton = document.querySelector(
         "[data-dialog-target='dialog']"
-      );
+      ) as HTMLElement | null;
+
       const backdrop = document.querySelector(
         "[data-dialog-backdrop='dialog']"
-      );
+      ) as HTMLElement | null;
+
       const closeButtons = document.querySelectorAll(
         "[data-dialog-close='true']"
-      );
+      ) as NodeListOf<HTMLElement> | null;
+
+      backdropRef.current = backdrop;
 
       if (openButton && backdrop) {
         openButton.addEventListener("click", () => {
@@ -74,6 +79,7 @@ export const Dialog: React.FC = () => {
       }
     }
   }, []);
+
   return (
     <DialogOverlay>
       <div
@@ -85,8 +91,12 @@ export const Dialog: React.FC = () => {
           Use a Farcaster verified Ethereum address.
         </div>
         <div className="flex flex-col gap-6 pt-6">
-          {signInOptions.map((option) => (
-            <Button key={option.name} className="flex pl-6 items-center">
+          {signInMetamask.map((option: SignInOption) => (
+            <Button
+              key={option.name}
+              className="flex pl-6 items-center"
+              onClick={() => connectToWallet()}
+            >
               <span className="mr-3">{option.icon}</span>
               <span className="font-semibold">{option.name}</span>
             </Button>

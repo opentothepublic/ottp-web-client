@@ -1,6 +1,7 @@
-import { PropsWithChildren } from "react";
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
-interface Props extends PropsWithChildren {
+interface Props
+  extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
   className?: string;
 }
 
