@@ -3,6 +3,7 @@
 import { MutableRefObject, PropsWithChildren, useEffect, useRef } from "react";
 import { SignInOption, signInMetamask } from "./constants";
 import { Button } from "@/components/common/Button";
+import { ethers } from "ethers";
 
 interface Props {
   setUserWallet: React.Dispatch<React.SetStateAction<string>>;
@@ -30,10 +31,13 @@ export const Dialog: React.FC<Props> = ({ setUserWallet }) => {
   const connectToWallet = async () => {
     if (window.ethereum) {
       try {
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        setUserWallet(accounts[0]);
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+
+        const signer = await provider.getSigner();
+        const accountAddress = await signer.getAddress();
+
+        setUserWallet(accountAddress);
         closeDialog(backdropRef);
       } catch {
         console.error("There was an issue connecting to your metamask account");
