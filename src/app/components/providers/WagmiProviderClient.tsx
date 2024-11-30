@@ -13,7 +13,7 @@ import { PropsWithChildren } from "react";
 
 const rainbowKitConfig = getDefaultConfig({
   appName: "OTTP",
-  projectId: "YOUR_PROJECT_ID", // For wallet connect
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID, // For wallet connect
   chains: [mainnet, polygon, optimism, arbitrum, base],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
