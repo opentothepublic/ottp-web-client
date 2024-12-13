@@ -1,4 +1,4 @@
-import { Post } from "@/app/components/Post";
+import { Post } from "@/components/Post";
 
 const post1: Post = {
   name: "undefined",

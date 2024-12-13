@@ -1,4 +1,4 @@
-import { PageContainer } from "@/app/components/PageLayout";
+import { PageContainer } from "@/components/PageLayout";
 import {
   Footer,
   Header,
