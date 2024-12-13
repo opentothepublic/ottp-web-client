@@ -1,3 +1,4 @@
+"use client";
 import { PropsWithChildren } from "react";
 
 export const Title: React.FC<PropsWithChildren<{}>> = ({ children }) => {

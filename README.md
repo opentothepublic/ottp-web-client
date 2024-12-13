@@ -3,12 +3,15 @@
 ![ottp-web-client-forked-lg](https://github.com/user-attachments/assets/fae7732f-200d-4ef8-b9d1-f5f2a6cd9c50)
 
 ## Get Started
+
 Open to the Public (OTTP) is an open collaboration protocol. View main [/protocol](https://opentothepublic.org/protocol) repo.
 
 This is the repository for the OTTP web client.
 
-Version: v0 
+Version: v0
 Note: The OTTP SDK is being updated. The web client will be built on the SDK.
+
+This app will follow the following structure laid out [here](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md)
 
 ## How to Run
 
@@ -30,6 +33,10 @@ npm -v
 
 1. run `npm ci`
 2. run `npm run dev` to view the live application on `http://localhost:3000/`
+
+### Connect with EAS
+
+1.
 
 ## Getting Started
 
@@ -62,6 +69,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## Get Involved
+
 If you're interested in contributing to this open-source project, please see [CONTRIBUTING](CONTRIBUTING.md).
 
-*Note: Everything is a work in progress.*
+_Note: Everything is a work in progress._
