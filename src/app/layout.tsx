@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono } from "next/font/google";
+import { IBM_Plex_Mono } from "@next/font/google";
 import "../../styles/globals.css";
 import { WagmiProviderClient } from "@/components/providers/WagmiProviderClient";
 
