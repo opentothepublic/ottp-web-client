@@ -1,8 +1,6 @@
 import {
   EAS,
-  Offchain,
   SchemaEncoder,
-  SchemaRegistry,
   NO_EXPIRATION,
 } from "@ethereum-attestation-service/eas-sdk";
 import { ethers, toBigInt } from "ethers";
