@@ -2,7 +2,7 @@ import Image from "next/image";
 import { PostSection } from "./PostSection";
 import { Collaborator } from "./Collaborator";
 import { PostFooter } from "./PostFooter";
-import Link from "next/link";
+import { ExternalLink } from "../common/ExternalLink";
 
 export type Post = {
   name: string;
@@ -46,9 +46,7 @@ export const Post: React.FC<Props> = ({ postContent }) => {
           <div className="flex text-gray-500 italic">
             {postContent.projectName}
           </div>
-          <Link href={"/"} className="text-blue underline">
-            View on EAS
-          </Link>
+          <ExternalLink href={"/"}>View on EAS</ExternalLink>
         </PostFooter>
       </div>
     </div>
