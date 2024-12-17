@@ -1,3 +1,4 @@
+import { AttestationSection } from "@/components/Attestation";
 import { PageContainer } from "@/components/PageLayout";
 import {
   Footer,
@@ -15,6 +16,7 @@ export default function Home() {
       <PageContainer>
         <Header />
         <div className="max-w-2xl mx-auto">
+          <AttestationSection />
           <Title />
           <NavBar />
           <Search />

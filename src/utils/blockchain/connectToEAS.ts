@@ -64,7 +64,10 @@ export const attestOnChain = async () => {
 
       const newAttestationUID = await transaction.wait();
 
-      console.log("New attestation UID:", newAttestationUID);
+      return {
+        newAttestationUID,
+        transaction,
+      };
     }
   } catch (e) {
     console.error(e);
