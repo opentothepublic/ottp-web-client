@@ -4,6 +4,7 @@ import { useState } from "react";
 import { attestOnChain } from "@/utils/blockchain/connectToEAS";
 import { Button } from "../common/Button";
 import { ExternalLink } from "../common/ExternalLink";
+import { AttestationDialog } from "../AttestationDialog";
 
 export const AttestationSection = () => {
   const [attestationUid, setAttestationUid] = useState("");
@@ -24,6 +25,7 @@ export const AttestationSection = () => {
 
   return (
     <section>
+      <AttestationDialog />
       <Button onClick={attestationHandler}>Make attestation</Button>
       {transactionData && (
         <div>
