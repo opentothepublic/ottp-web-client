@@ -20,6 +20,7 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.54.1",
     "viem": "^2.21.48",
     "wagmi": "^2.13.0"
   },
