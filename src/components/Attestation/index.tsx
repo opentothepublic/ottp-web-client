@@ -2,7 +2,6 @@
 import { Transaction } from "@ethereum-attestation-service/eas-sdk";
 import { useState } from "react";
 import { attestOnChain } from "@/utils/blockchain/connectToEAS";
-import { Button } from "../common/Button";
 import { ExternalLink } from "../common/ExternalLink";
 import { AttestationDialog } from "../AttestationDialog";
 
@@ -11,7 +10,7 @@ export const AttestationSection = () => {
   const [transactionData, setTransactionData] =
     useState<Transaction<string> | null>(null);
 
-  const attestationHandler = async () => {
+  const makeAttestation = async () => {
     try {
       const res = await attestOnChain();
       if (res) {
@@ -25,8 +24,7 @@ export const AttestationSection = () => {
 
   return (
     <section>
-      <AttestationDialog />
-      <Button onClick={attestationHandler}>Make attestation</Button>
+      <AttestationDialog makeAttestation={makeAttestation} />
       {transactionData && (
         <div>
           View on BaseScan&nbsp;

@@ -52,10 +52,11 @@ export const attestOnChain = async () => {
       const schemaUID =
         "0x9e17d50ab0011c5816db3d3eb79866f1cf66e2933e6ce76199679225ab6cd811";
 
+      const phantomWallet = "0x65E0b133e2e1A28B2aC5130E8E2588D209C084CF";
       const transaction = await eas.attest({
         schema: schemaUID,
         data: {
-          recipient: "0x0000000000000000000000000000000000000000",
+          recipient: phantomWallet,
           expirationTime: NO_EXPIRATION,
           revocable: true,
           data: encodedData,

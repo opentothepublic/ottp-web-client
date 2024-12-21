@@ -1,5 +1,6 @@
 import { Button, ButtonVariant } from "@/components/common/Button";
-import TextField from "@mui/material/TextField";
+import { Transaction } from "@ethereum-attestation-service/eas-sdk";
+import { attestOnChain } from "@/utils/blockchain/connectToEAS";
 import Dialog from "@mui/material/Dialog";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
@@ -14,7 +15,11 @@ type Inputs = {
   ethereumAddress: string;
 };
 
-export const AttestationDialog = () => {
+interface Props {
+  makeAttestation: () => Promise<void>;
+}
+
+export const AttestationDialog: React.FC<Props> = ({ makeAttestation }) => {
   const {
     register,
     handleSubmit,
@@ -39,9 +44,16 @@ export const AttestationDialog = () => {
     setIsFormValid(isValid);
   };
 
+  const handleFormSubmit = () => {
+    if (isFormValid) {
+      makeAttestation();
+      handleClose();
+    }
+  };
+
   return (
     <>
-      <Button onClick={handleClickOpen}>Open form dialog</Button>
+      <Button onClick={handleClickOpen}>Make attestation</Button>
       <Dialog open={open} onClose={handleClose}>
         <form className="body-medium p-12" onSubmit={handleSubmit(onSubmit)}>
           <aside className="body-small">ADD CONTRIBUTION</aside>
@@ -92,6 +104,7 @@ export const AttestationDialog = () => {
             className="float-right"
             variant={isFormValid ? ButtonVariant.MAIN : ButtonVariant.IDLE}
             type="submit"
+            onClick={handleFormSubmit}
           >
             Add
           </Button>
