@@ -12,7 +12,10 @@ export const AttestationSection = () => {
 
   return (
     <section>
-      <AttestationDialog />
+      <AttestationDialog
+        setAttestationUid={setAttestationUid}
+        setTransactionData={setTransactionData}
+      />
       {transactionData && (
         <div>
           View on BaseScan&nbsp;

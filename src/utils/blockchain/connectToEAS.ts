@@ -72,6 +72,10 @@ export const attestOnChain = async (
         newAttestationUID,
         transaction,
       };
+    } else {
+      console.error(
+        "No ethereum provider found. Please install one (Metamask,Phantom,etc.) "
+      );
     }
   } catch (e) {
     console.error(e);

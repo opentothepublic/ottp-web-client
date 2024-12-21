@@ -3,8 +3,9 @@ import { attestOnChain } from "@/utils/blockchain/connectToEAS";
 import Dialog from "@mui/material/Dialog";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useAccount } from "wagmi";
+import { Transaction } from "@ethereum-attestation-service/eas-sdk";
 
 const formLabelClass = "title-small mb-6";
 const formParagraphClass = "my-2";
@@ -15,7 +16,15 @@ type Inputs = {
   contributonData: string;
 };
 
-export const AttestationDialog: React.FC = () => {
+interface Props {
+  setAttestationUid: Dispatch<SetStateAction<string>>;
+  setTransactionData: Dispatch<SetStateAction<Transaction<string> | null>>;
+}
+
+export const AttestationDialog: React.FC<Props> = ({
+  setAttestationUid,
+  setTransactionData,
+}) => {
   const {
     register,
     handleSubmit,
@@ -24,16 +33,19 @@ export const AttestationDialog: React.FC = () => {
     reset,
   } = useForm<Inputs>();
   const [open, setOpen] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
+
+  const [isFormValid, setIsFormValid] = useState({
+    collaborators: false,
+    contributionData: false,
+  });
   const { address, isConnected } = useAccount();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data.collaborators);
-
     const res = await attestOnChain(data.collaborators, data.contributonData);
+
     if (res) {
-      console.log("newAttesationUID: ", res.newAttestationUID);
-      console.log("transaction: ", res.transaction);
+      setAttestationUid(res.newAttestationUID);
+      setTransactionData(res.transaction);
     }
     reset();
     handleClose();
@@ -45,11 +57,6 @@ export const AttestationDialog: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const revalidateForm = async () => {
-    const isValid = await trigger();
-    setIsFormValid(isValid);
   };
 
   return (
@@ -77,7 +84,13 @@ export const AttestationDialog: React.FC = () => {
               })}
               className="w-full pl-6 py-2 border"
               placeholder="0xabc123..."
-              onBlur={revalidateForm} // Trigger validation for all fields on blur
+              onBlur={async () => {
+                const isCollaboratorsValid = await trigger("collaborators");
+                setIsFormValid((prevState) => ({
+                  ...prevState,
+                  ["collaborators"]: isCollaboratorsValid,
+                }));
+              }}
             />
             <ErrorMessage
               errors={errors}
@@ -96,7 +109,15 @@ export const AttestationDialog: React.FC = () => {
               })}
               className="w-full pl-6 py-2 border"
               placeholder="Built"
-              onBlur={revalidateForm} // Trigger validation for all fields on blur
+              onBlur={async () => {
+                const isContributionDataValid = await trigger(
+                  "contributonData"
+                );
+                setIsFormValid((prevState) => ({
+                  ...prevState,
+                  ["contributionData"]: isContributionDataValid,
+                }));
+              }}
             />
             <ErrorMessage
               errors={errors}
@@ -114,7 +135,11 @@ export const AttestationDialog: React.FC = () => {
           <p>By attesting you are confirming onchain.</p>
           <Button
             className="float-right"
-            variant={isFormValid ? ButtonVariant.MAIN : ButtonVariant.IDLE}
+            variant={
+              isFormValid.collaborators && isFormValid.contributionData
+                ? ButtonVariant.MAIN
+                : ButtonVariant.IDLE
+            }
             type="submit"
           >
             Attest
