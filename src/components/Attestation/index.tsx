@@ -1,7 +1,7 @@
 "use client";
+
 import { Transaction } from "@ethereum-attestation-service/eas-sdk";
 import { useState } from "react";
-import { attestOnChain } from "@/utils/blockchain/connectToEAS";
 import { ExternalLink } from "../common/ExternalLink";
 import { AttestationDialog } from "../AttestationDialog";
 
@@ -10,21 +10,9 @@ export const AttestationSection = () => {
   const [transactionData, setTransactionData] =
     useState<Transaction<string> | null>(null);
 
-  const makeAttestation = async () => {
-    try {
-      const res = await attestOnChain();
-      if (res) {
-        setAttestationUid(res.newAttestationUID);
-        setTransactionData(res.transaction);
-      }
-    } catch (e) {
-      console.log("Error trying to make attestation:", e);
-    }
-  };
-
   return (
     <section>
-      <AttestationDialog makeAttestation={makeAttestation} />
+      <AttestationDialog />
       {transactionData && (
         <div>
           View on BaseScan&nbsp;

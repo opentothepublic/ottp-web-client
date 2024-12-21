@@ -7,14 +7,21 @@ import {
   lightTheme,
 } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
-import { mainnet, polygon, optimism, arbitrum, base } from "wagmi/chains";
+import {
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
+  base,
+  baseSepolia,
+} from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { PropsWithChildren } from "react";
 
 const rainbowKitConfig = getDefaultConfig({
   appName: "OTTP",
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID as string, // For wallet connect
-  chains: [mainnet, polygon, optimism, arbitrum, base],
+  chains: [mainnet, polygon, optimism, arbitrum, base, baseSepolia],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
 

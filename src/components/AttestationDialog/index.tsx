@@ -1,9 +1,10 @@
 import { Button, ButtonVariant } from "@/components/common/Button";
-import { Transaction } from "@ethereum-attestation-service/eas-sdk";
 import { attestOnChain } from "@/utils/blockchain/connectToEAS";
 import Dialog from "@mui/material/Dialog";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import { useState } from "react";
+import { useAccount } from "wagmi";
 
 const formLabelClass = "title-small mb-6";
 const formParagraphClass = "my-2";
@@ -11,27 +12,34 @@ const formSection = "my-6";
 
 type Inputs = {
   collaborators: string;
-  contributon: string;
-  ethereumAddress: string;
+  contributonData: string;
 };
 
-interface Props {
-  makeAttestation: () => Promise<void>;
-}
-
-export const AttestationDialog: React.FC<Props> = ({ makeAttestation }) => {
+export const AttestationDialog: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     trigger,
+    reset,
   } = useForm<Inputs>();
   const [open, setOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const { address, isConnected } = useAccount();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data.collaborators);
 
-  const handleClickOpen = () => {
+    const res = await attestOnChain(data.collaborators, data.contributonData);
+    if (res) {
+      console.log("newAttesationUID: ", res.newAttestationUID);
+      console.log("transaction: ", res.transaction);
+    }
+    reset();
+    handleClose();
+  };
+
+  const handleClickOpen = async () => {
     setOpen(true);
   };
 
@@ -42,13 +50,6 @@ export const AttestationDialog: React.FC<Props> = ({ makeAttestation }) => {
   const revalidateForm = async () => {
     const isValid = await trigger();
     setIsFormValid(isValid);
-  };
-
-  const handleFormSubmit = () => {
-    if (isFormValid) {
-      makeAttestation();
-      handleClose();
-    }
   };
 
   return (
@@ -64,14 +65,24 @@ export const AttestationDialog: React.FC<Props> = ({ makeAttestation }) => {
           <div className={formSection}>
             <label className="title-small">Collaborators</label>
             <p className={formParagraphClass}>
-              Tag collaborators, using their Farcaster usernames, e.g. @username
-              @username @username. Separate each with a space.
+              Tag a collaborator, using their ethereum address.
             </p>
             <input
-              {...register("collaborators", { required: true })}
+              {...register("collaborators", {
+                required: "This field is required.",
+                pattern: {
+                  value: /^0x[a-fA-F0-9]{40}$/,
+                  message: "Input must be an Ethereum address",
+                },
+              })}
               className="w-full pl-6 py-2 border"
-              placeholder="@lowcodekrish @naaate @decipher @ting"
+              placeholder="0xabc123..."
               onBlur={revalidateForm} // Trigger validation for all fields on blur
+            />
+            <ErrorMessage
+              errors={errors}
+              name="collaborators"
+              render={({ message }) => <p className="text-red">{message}</p>}
             />
           </div>
           <div className={formSection}>
@@ -80,33 +91,33 @@ export const AttestationDialog: React.FC<Props> = ({ makeAttestation }) => {
               Described what you worked on together.
             </p>
             <textarea
-              {...register("contributon", { required: true })}
+              {...register("contributonData", {
+                required: "This field is required.",
+              })}
               className="w-full pl-6 py-2 border"
               placeholder="Built"
               onBlur={revalidateForm} // Trigger validation for all fields on blur
             />
-          </div>
-          <div className={formSection}>
-            <label className="title-small">Ethereum Address</label>
-            <p className={formParagraphClass}>
-              Select an Ethereum address to attest from
-            </p>
-            <input
-              {...register("ethereumAddress", { required: true })}
-              className="w-full pl-6 py-2 border"
-              placeholder="Built"
-              onBlur={revalidateForm} // Trigger validation for all fields on blur
+            <ErrorMessage
+              errors={errors}
+              name="contributonData"
+              render={({ message }) => <p className="text-red">{message}</p>}
             />
           </div>
+          {isConnected && (
+            <div className={formSection}>
+              <p className={formParagraphClass}>
+                You are attesting from Ethereum address: {address}
+              </p>
+            </div>
+          )}
           <p>By attesting you are confirming onchain.</p>
-
           <Button
             className="float-right"
             variant={isFormValid ? ButtonVariant.MAIN : ButtonVariant.IDLE}
             type="submit"
-            onClick={handleFormSubmit}
           >
-            Add
+            Attest
           </Button>
         </form>
       </Dialog>
