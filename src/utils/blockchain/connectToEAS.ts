@@ -26,7 +26,10 @@ export const initializeEAS = async () => {
   }
 };
 
-export const attestOnChain = async () => {
+export const attestOnChain = async (
+  recipient: string,
+  contributionData: string
+) => {
   try {
     if (window.ethereum) {
       const eas = new EAS(EASBaseSepoliaContractAddress);
@@ -44,7 +47,7 @@ export const attestOnChain = async () => {
       const encodedData = schemaEncoder.encodeData([
         { name: "fid", value: toBigInt(2), type: "uint256" },
         { name: "action", value: 1, type: "uint256" },
-        { name: "data", value: "Testdata", type: "string" },
+        { name: "data", value: contributionData, type: "string" },
         { name: "label", value: 2, type: "uint8" },
         { name: "tags", value: "0x3039", type: "bytes" },
       ]);
@@ -52,10 +55,11 @@ export const attestOnChain = async () => {
       const schemaUID =
         "0x9e17d50ab0011c5816db3d3eb79866f1cf66e2933e6ce76199679225ab6cd811";
 
+      // Test wallet "0x65E0b133e2e1A28B2aC5130E8E2588D209C084CF";
       const transaction = await eas.attest({
         schema: schemaUID,
         data: {
-          recipient: "0x0000000000000000000000000000000000000000",
+          recipient: recipient,
           expirationTime: NO_EXPIRATION,
           revocable: true,
           data: encodedData,
@@ -68,6 +72,10 @@ export const attestOnChain = async () => {
         newAttestationUID,
         transaction,
       };
+    } else {
+      console.error(
+        "No ethereum provider found. Please install one (Metamask,Phantom,etc.) "
+      );
     }
   } catch (e) {
     console.error(e);
