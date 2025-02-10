@@ -1,4 +1,8 @@
+"use client";
+
 import { PageContainer } from "@/app/components/PageLayout";
+import { BrowserRouter } from 'react-router-dom';
+
 import {
   Footer,
   Header,
@@ -11,6 +15,7 @@ import { posts } from "@/constants/mocks/postsMock";
 
 export default function Home() {
   return (
+    <BrowserRouter>
     <main>
       <PageContainer>
         <Header />
@@ -25,5 +30,6 @@ export default function Home() {
       </PageContainer>
       <Footer />
     </main>
+  </BrowserRouter>
   );
 }
