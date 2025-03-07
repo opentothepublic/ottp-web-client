@@ -16,8 +16,8 @@ export default function Home() {
       <PageContainer>
         <Header />
         <div className="max-w-2xl mx-auto">
-          <AttestationSection />
           <Title />
+          <AttestationSection />
           <NavBar />
           <Search />
           {posts.map((post, index) => {

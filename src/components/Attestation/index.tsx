@@ -11,7 +11,7 @@ export const AttestationSection = () => {
     useState<Transaction<string> | null>(null);
 
   return (
-    <section>
+    <section className="grid grid-cols-1">
       <AttestationDialog
         setAttestationUid={setAttestationUid}
         setTransactionData={setTransactionData}
