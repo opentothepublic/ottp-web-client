@@ -1,0 +1,8 @@
+{
+  "base-sepolia": {
+    "eas-attestations": {
+      "address": "0x4200000000000000000000000000000000000021",
+      "startBlock": 0
+    }
+  }
+}
