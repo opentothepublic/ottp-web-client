@@ -1,0 +1,8 @@
+{
+  "base-sepolia": {
+    "eas-base-sepolia": {
+      "address": "0x4200000000000000000000000000000000000021",
+      "startBlock": 0
+    }
+  }
+}
